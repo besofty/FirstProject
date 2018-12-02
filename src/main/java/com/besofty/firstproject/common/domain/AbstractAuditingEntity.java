@@ -1,4 +1,4 @@
-package com.besofty.firstproject.domain;
+package com.besofty.firstproject.common.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;

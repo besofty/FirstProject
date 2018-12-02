@@ -1,8 +1,7 @@
-package com.yylc.loanmarket.exception;
+package com.besofty.firstproject.exception;
 
 
-import com.yylc.loanmarket.entity.JsonResult;
-import feign.FeignException;
+import com.besofty.firstproject.common.dto.JsonResp;
 import org.apache.log4j.Logger;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -21,65 +20,46 @@ public class MyExceptionHandler {
 
     @ResponseBody
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    public JsonResult validExceptionHandler(MethodArgumentNotValidException ex) {
+    public JsonResp validExceptionHandler(MethodArgumentNotValidException ex) {
         BindingResult result = ex.getBindingResult();
         return generateForBindException(result);
     }
 
     @ResponseBody
     @ExceptionHandler(value = MicroserviceException.class)
-    public JsonResult clientExceptionHandler(MicroserviceException ex){
+    public JsonResp clientExceptionHandler(MicroserviceException ex){
         log.error(ex.getMessage());
         return ex.getResult();
     }
 
     @ResponseBody
     @ExceptionHandler(value = RuntimeException.class)
-    public JsonResult<String> clientErrorHandler(RuntimeException ex){
+    public JsonResp clientErrorHandler(RuntimeException ex){
         log.error(ex.getCause().getMessage());
-        return new JsonResult<String>()
-                .setCode("1")
-                .setData(ex.getMessage())
-                .setMessage("服务运行异常！");
+        return JsonResp.fa("服务运行异常！");
     }
 
     @ExceptionHandler(TimeoutException.class)
     @ResponseBody
-    public JsonResult<String> timeOutException(TimeoutException ex) {
+    public JsonResp timeOutException(TimeoutException ex) {
         log.error(ex.getMessage());
-        return new JsonResult<String>()
-                .setCode("1")
-                .setData(ex.getMessage())
-                .setMessage("接口超时！");
+        return JsonResp.fa("接口超时！");
     }
 
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseBody
-    public JsonResult<String> processAccessDeniedException(AccessDeniedException ex) {
+    public JsonResp processAccessDeniedException(AccessDeniedException ex) {
         log.error(ex.getMessage());
-        return new JsonResult<String>()
-                .setCode("1")
-                .setData(ex.getMessage())
-                .setMessage("拒绝连接！");
+        return JsonResp.fa("拒绝连接！");
     }
 
-    @ResponseBody
-    @ExceptionHandler(FeignException.class)
-    public JsonResult processFeignException(FeignException ex) {
-        log.error(ex.getMessage());
-        return new JsonResult<String>()
-                .setCode("1")
-                .setData(ex.getMessage())
-                .setMessage("内部服务异常！");
-    }
 
-    private JsonResult generateForBindException(BindingResult result){
+    private JsonResp generateForBindException(BindingResult result){
         List<FieldErrorVM> fieldErrors = result.getFieldErrors().stream()
                 .map(f -> new FieldErrorVM(f.getObjectName(), f.getField(), f.getDefaultMessage()))
                 .collect(Collectors.toList());
         String errorMessage = fieldErrors.stream().findFirst().get().getMessage();
-        return new JsonResult().setCode("1")
-                .setMessage(errorMessage);
+        return JsonResp.fa(errorMessage);
     }
 
 }

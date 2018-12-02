@@ -1,4 +1,4 @@
-package com.yylc.loanmarket.config;
+package com.besofty.firstproject.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -23,20 +23,15 @@ public class SwaggerConfig {
                 .host(swaggerHost)
                 .apiInfo(apiInfo())
                 .select()
-                //为当前包路径
-                .apis(RequestHandlerSelectors.basePackage("com.yylc.loanmarket"))
+                .apis(RequestHandlerSelectors.basePackage("com.besofty.firstproject"))
                 .paths(PathSelectors.any())
                 .build();
     }
 
-    //构建 api文档的详细信息函数
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                //页面标题
-                .title("market api")
-                //版本号
+                .title("first project api")
                 .version("1.0")
-                //描述
                 .description("API 描述")
                 .build();
     }

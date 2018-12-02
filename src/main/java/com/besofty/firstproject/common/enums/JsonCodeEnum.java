@@ -1,11 +1,21 @@
-package com.yinghuo.xjdbff.common;
+package com.besofty.firstproject.common.enums;
 
-/**
- * JSON格式类
- * Created by bin on 2017/2/20.
- */
 public enum JsonCodeEnum {
-    SUCCESS(200, "成功"), FAIL(201, "失败"), PARAMETER_INVALID(204, "参数不合法"), EXISTING(205, "已存在"), UNREGISTERED(206, "未注册"), TOKEN_NOT_FIND(207, "未找到"), OVERTIME(208, "已超时或过期"), EMPTY(209, "空数据"), PARAMETER_ERROR(210, "参数填写错误"), CONFLICT(211, "冲突"), BALANCE_NOT_ENOUGH(212, "余额不足"), NOT_AUTHORIZATION(213, "没有权限"), STATUS_DISABLED(214, "状态不可用"), STOP(215, "用户已被禁用"), REDIRECT(216, "请重定向返回地址");
+    SUCCESS(200, "成功"),
+    FAIL(401, "失败"),
+    PARAMETER_INVALID(404, "参数不合法"),
+    EXISTING(405, "已存在"),
+    UNREGISTERED(406, "未注册"),
+    TOKEN_NOT_FIND(407, "未找到"),
+    OVERTIME(408, "已超时或过期"),
+    EMPTY(409, "空数据"),
+    PARAMETER_ERROR(410, "参数填写错误"),
+    CONFLICT(411, "冲突"),
+    BALANCE_NOT_ENOUGH(412, "余额不足"),
+    NOT_AUTHORIZATION(413, "没有权限"),
+    STATUS_DISABLED(414, "状态不可用"),
+    STOP(415, "用户已被禁用"),
+    REDIRECT(416, "请重定向返回地址");
 
     JsonCodeEnum(Integer code, String message) {
         this.code = code;
